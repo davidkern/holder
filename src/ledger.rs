@@ -18,6 +18,7 @@ use std::num::NonZeroUsize;
 use crate::Direction;
 
 /// Single-threaded allocator bookkeeping
+#[derive(Copy, Clone, Debug, Eq, PartialEq)]
 pub struct Ledger {
     /// Forward stack free slot, zero-indexed
     front: usize,
@@ -72,9 +73,8 @@ impl Ledger {
             match direction {
                 Direction::Forward => {
                     // post-increment 0-based index
-                    let index = self.front;
                     self.front += len;
-                    Ok(index)
+                    Ok(self.front - len)
                 },
                 Direction::Reverse => {
                     // pre-decrement 1-based index
