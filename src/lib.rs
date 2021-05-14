@@ -39,10 +39,83 @@
 //! [`Hold<T>`]: crate::Hold
 //! [1024cores Lockfree Algorithms]: https://www.1024cores.net/home/lock-free-algorithms/
 
+mod a;
 mod ledger;
 mod direction;
 mod hold;
+mod holder;
 
+pub use a::A;
 pub use direction::Direction;
-//pub use hold::Hold;
+pub use hold::Hold;
+pub use holder::Holder;
 pub use ledger::{Ledger, LedgerError};
+
+
+// #[cfg(test)]
+// mod test {
+//     use std::mem::MaybeUninit;
+
+//     trait Ledger: Default { }
+
+//     #[derive(Default)]
+//     struct Array;
+
+//     #[derive(Default)]
+//     struct Stack;
+
+//     #[derive(Default)]
+//     struct DualStack;
+
+//     impl Ledger for DualStack { }
+
+//     struct Hold<T, L: Ledger, const S:usize> {
+//         ledger: L,
+//         arena: MaybeUninit<[T; S]>,
+//     }
+
+//     impl<T, L: Ledger> Hold<T, L, 0> {
+//         pub fn reserve(&mut self, _size: usize) {
+//         }
+//     }
+
+//     impl<T, L: Ledger, const SIZE: usize> Hold<T, L, SIZE> {
+//         pub fn new() -> Self {
+//             Self {
+//                 ledger: L::default(),
+//                 arena: MaybeUninit::uninit(),
+//             }
+//         }
+//     }
+
+//     impl<T, L: Ledger, const S:usize> Default for Hold<T, L, S>{
+//         fn default() -> Self {
+//             Hold {
+//                 ledger: L::default(),
+//                 arena: MaybeUninit::uninit(),
+//             }
+//         }
+//     }
+
+//     struct Holder {
+//         a: Hold<String, DualStack, 0>,
+//         b: Hold<u32, DualStack, 100>,
+//         c: Hold<u8, DualStack, 100>,
+//     }
+
+//     impl Holder {
+//         const fn new() -> Self {
+//             Self {
+//                 a: Hold::new(),
+//                 b: Hold::new(),
+//                 c: Hold::new(),
+//             }
+//         }
+//     }
+
+//     static A: Holder = Holder::new();         
+
+//     #[test]
+//     fn motivating_example() {
+//     }
+// }

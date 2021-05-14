@@ -21,13 +21,13 @@ use crate::Direction;
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 pub struct Ledger {
     /// Forward stack free slot, zero-indexed
-    front: usize,
+    pub(crate) front: usize,
 
     /// Reverse stack free slot, zero-indexed
-    back: usize,
+    pub(crate) back: usize,
 
     /// The total capacity available to allocate
-    capacity: usize,    
+    pub(crate) capacity: usize,    
 }
 
 /// Errors returned by the Ledger
